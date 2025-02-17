@@ -1,0 +1,1 @@
+Simulación de una página de lotería que consta de dos botones: el primero, que genera un número aleatorio de a lo sumo 5 cifras, y el otro, que compara el numero premiado con el numero jugado, y en base a la cantidad de dígitos que coincidian al final, o si coincidian el dígito al principio o al final, se decide el premio, y muestra "No Premiado" si no hay ninguna coincidencia.
