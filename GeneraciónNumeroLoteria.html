@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+	<head>			<!-- LEYENDA: JS = JavaScript, nro = numero-->
+	<meta charset="utf-8">
+	<title>Generar números</title>
+	</head>
+	<script type="text/javascript"> //Aqui genero mi texto de JS compuesto por las funciones que necesitO para esta actividad.
+		
+		//PARTE A.: CREAR BOTÓN QUE GENERA NÚMEROS ALEATORIOS DE 5 CIFRAS.
+		
+		function GenerarNroAleatorio(){	//Funcion que generará un numero aleatorio de 5 cifras
+			let num; //Variable auxiliar donde se almacenará el número aleatorio.
+			
+			//Ahora haré uso del objeto Math predeterminado de JS.
+			
+			num = 100000*Math.random(); //Método random: Gneero números aleatorios entre 0 y 1 (excluyendo el 1).
+			num = Math.floor(num);		//Método floor: Hace aproximación por defecto a num a entero (saca su parte entera).
+			
+			//Ahora valido si se generó un número entero de 5 cifras.
+			
+			<!-- num = num.toString();	//Convierto el texto a String para ver su longitud. -->
+			<!-- while (num.length<5){ -->
+				<!-- num = "0"+num;			//Con este bucle digo: Si num tiene 4 o menos cifras, le añadiré un 0 a la izquierda  -->
+			<!-- }							// seguiré asi hasta completar los 5 dígitos en mi número. -->
+			alert("Numero aleatorio: "+num);
+			//return num; // devuelvo el valor ya redondeado
+		}
+		
+		//PARTE B.: CREAR BOTÓN 'COMPROBAR NÚMERO'
+		
+		/*”Este botón pide con ventanas de diálogo para rellenar dos 
+números:  
+ Primero, el número premiado.  
+ Segundo, el número jugado. 
+Ambos números tendrán 5 dígitos en los que cada uno de ellos será un número del 0 al 9. 
+Mostrará el resultado con una ventana emergente según los siguientes casos: 
+ Premio 1€: si termina y/o empieza por la misma cifra. 
+ Premio 5€: si termina por las 2 últimas cifras. 
+ Premio 50€: si termina por las 3 últimas cifras. 
+ Premio 500€: si termina por las 4 últimas cifras. 
+ Premio 5000€: si es el número premiado. 
+ No premiado: en los casos restantes. */
+		
+			//ENSAYO (SIN NECESIDAD DE CONVERTIRLO A CADENA) FALLIDO.
+		
+		<!-- function DIV(num1, num2){	//DIV realiza la división entera entre num1 como dividendo y num2 como divisor.  -->
+			<!-- let cociente = num1/num2; -->
+			<!-- cociente = parseInt(cociente); //Busco la parte entera del cociente de la division de num1 entre num2. -->
+			<!-- return cociente;	//Devuelvo el cociente entero. -->
+		<!-- } -->
+		
+		<!-- function CincoCifras(numero){   //Función que verifica que 'numero' tiene exactamente 5 cifras -->
+			<!-- let bool = true; 					//Inicializo la variable lógica 'bool' dentro de este bloque con 'true'. -->
+			<!-- if DIV(numero,100000)>0) {   //Garantizo que numero no tenga mas de 5 cifras -->
+				<!-- bool = false; -->
+			<!-- } else { -->
+				<!-- for (k = 1;k == 4;k++){ -->
+					<!-- if (DIV(numero,10**k) == 0) {  //Aqui garantizo que 'numero' no tenga menos de 5 cifras. -->
+						<!-- bool = false; -->
+						<!-- break; -->
+					<!-- } -->
+				<!-- } -->
+			<!-- } -->
+			<!-- if (numero == 0) { -->
+			<!-- bool = true; -->
+			<!-- } -->
+			<!-- return bool;   -->
+		<!-- } -->
+		
+		
+				//PRELIMINAR DE LA PARTE B.
+		
+		function Rellenar(num){  	//rellena un número dado en tantos ceros a la izquierda hasta completar las 5 cifras.
+			if (num.length<5){
+				do {
+					num = "0"+num;
+				}while (num.length<5);
+			}
+			return num;
+		}
+		//PARA QUE NECESITO ESTA FUNCIÓN DE ARRIBA? LA NECESITARÉ MAS ADELANTE PARA VALIDAR NRO DE DIGITOS DE UN NRO y darle el formato de 5 cifras. 
+		
+		function NroEsVálido(num){   //Verifico que 'num' sea un nro válido.
+			if ( (num >= 0) && (num <=99999) && (Number.isInteger(num)) ){  //valido si 'num' es mayor o igual a 0, menor o igual a 99999 
+			return true; 													// y que sea entero.
+		   }else{ 
+			return false; 
+		   } 
+		} 
+		
+		//A CONTINUACIÓN ESTÁ LA PARTE B.: CREAR LA FUNCIÓN 'COMPROBAR NUMERO':
+		
+		function ComprobarNumero(){	
+			let nroPrem, nroJug; //variables que almacenan el nro premiado y el nro jugado, respectivamente.
+			   do{ 
+					nroPrem=Number(prompt("Introduzca el número premiado: ")); 
+					if (!NroEsVálido(nroPrem)){
+						alert("Número inválido.")
+					}
+			   }while(!NroEsVálido(nroPrem)); 
+
+			   do{ 
+					nroJug=Number(prompt("Introduzca el número jugado: "));   //Hasta aqui he validado el nro premiado y el nro jugado.
+					if (!NroEsVálido(nroJug)){
+						alert("Número inválido.")
+					}
+			   }while(!NroEsVálido(nroJug)); 
+			   
+				nroPrem=nroPrem.toString();  //Convierto ambos números a cadena de caracteres.
+			    nroJug=nroJug.toString();
+				
+				//console.log("Nro premiado cambiado a string: "+nroPrem);  //Cambiados a string.
+				//console.log("Nro jugado cambiado a string: "+nroJug);
+				
+				nroPrem=Rellenar(nroPrem);  //ahora relleno con ceros a la izquierda hasta completar las 5 cifras (si tiene menos de 5).
+				nroJug=Rellenar(nroJug);
+				
+				//console.log("Nro premiado rellenado: "+nroPrem);  //Rellenados con 0.
+				//console.log("Nro jugado rellenado: "+nroJug);
+				
+			   //Comprobación de los premios  
+			   
+			   if (nroPrem === nroJug){ 
+				alert("Premio: 5000€"); 
+			   }else if(nroPrem.substring(1) === nroJug.substring(1)){ 			//Validación de coincidencia para las 4 últimas cifras.
+				alert("Premio: 500€"); 
+			   }else if(nroPrem.substring(2) === nroJug.substring(2)){ 			//Validación de coincidencia para las 3 últimas cifras.
+				alert("Premio: 50€"); 
+			   }else if(nroPrem.substring(3) === nroJug.substring(3)){ 			//Validación de coincidencia para las 2 últimas cifras.
+				alert("Premio: 5€"); 
+			   }else if(nroPrem.charAt(0) === nroJug.charAt(0) || nroPrem.charAt(4) === nroJug.charAt(4)){ 
+				alert("Premio: 1€"); 		//Validación de coincidencia para la última (o primera) cifra con el metodo charAt.
+			   }else{ 
+				alert("No premiado"); 
+			   } 
+			} 
+	</script>
+	<style>
+		#contenedor {
+			width: 100%;
+			height:1200px;
+			background-image: url('https://www.megeve-tourisme.fr/app/uploads/2022/02/stelsia-casino-megeve.jpg');
+			background-repeat: no-repeat;
+		}	
+	</style>
+	<body>
+	<div id="contenedor">		<!-- CAJA CONTENEDORA -->
+	<!-- BOTÓN PARTE A. -->
+	<button id="generarNro" onclick="GenerarNroAleatorio()">Generar Número Aleatorio</button> <!-- Interesante el uso de <button> en lugar de  -->
+																							  <!-- <input>. Personalmente me interesa aprender mas sobre esta etiqueta -->
+	<!-- BOTÓN PARTE B. -->
+	<button id="comprobarNumero" onclick="ComprobarNumero()">Comprobar Número</button> 
+	</div>
+<!-- 	ESTE SCRIPT ES SOLO PARA COMPRENDER EL FUNCIONAMIENTO DEL METODO SUBSTRING (NO ES PARTE DE LA TAREA).
+	
+	<script type="text/javascript">
+		var k=2;
+		var cad1, cad2;
+		cad1 = "52483";
+		cad2 = "75689";
+		document.write(cad1.substring(k)+" y "+cad2.substring(k));
+	</script> -->
+	
+	<!-- ESTE SCRIPT ES SOLO PARA COMPRENDER EL FUNCIONAMIENTO DE LA IGUALDAD (==) Y LA IGUALDAD ESTRICTA (===). ESTO NO ES PARTE DE LA TAREA).
+	
+	<script type="text/javascript">
+		var cad1, cad2;
+		cad1 = 10;
+		cad2 = 10;
+		document.write("<br><br>Igualdad normal: "+ (cad1 == cad2)+"<br><br>");
+		document.write("Igualdad estricta: "+ (cad1 === cad2));
+	</script>  -->
+	</body>
+</html>
